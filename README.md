@@ -1,269 +1,247 @@
-# Brainwave Matrix Intern Fake News Classification
+# Brainwave Matrix Intern - Fake News Classification
 
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
-[![NLTK](https://img.shields.io/badge/NLTK-3.6.2-green)](https://www.nltk.org/)
-[![scikit-learn](https://img.shields.io/badge/scikit--learn-0.24.2-orange)](https://scikit-learn.org/stable/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+## Project Overview
+
+This project was developed during an internship at **Brainwave Matrix** and focuses on building a machine learning model to classify news articles as real or fake. With the increasing spread of misinformation, it's crucial to have tools that can help in detecting and preventing the dissemination of fake news. This repository contains a comprehensive Jupyter Notebook that details the entire process, from data preprocessing to model evaluation.
+
+---
 
 ## Table of Contents
 
-- [Overview](#overview)
+- [Project Overview](#project-overview)
 - [Dataset Description](#dataset-description)
 - [Project Structure](#project-structure)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Methodology](#methodology)
+  - [Data Preprocessing](#data-preprocessing)
+  - [Feature Extraction](#feature-extraction)
+  - [Model Training](#model-training)
+  - [Model Evaluation](#model-evaluation)
 - [Results](#results)
-- [Challenges and Solutions](#challenges-and-solutions)
+- [Challenges Faced](#challenges-faced)
+- [Conclusion](#conclusion)
 - [Future Work](#future-work)
-- [Contributing](#contributing)
-- [License](#license)
 - [References](#references)
-
----
-
-## Overview
-
-In an era where misinformation spreads rapidly, detecting fake news is more critical than ever. This project, **Brainwave Matrix Intern Fake News Classification**, focuses on building machine learning models to accurately classify news articles as real or fake using the WELFake dataset. By leveraging natural language processing (NLP) techniques and powerful classifiers like Multinomial Naive Bayes and Random Forest, the project aims to contribute to the fight against misinformation.
 
 ---
 
 ## Dataset Description
 
-The **WELFake** dataset is a comprehensive collection of news articles designed to facilitate the detection of fake news through machine learning.
+The **WELFake** dataset is used for this project. It is a comprehensive collection of news articles labeled as fake or real, merged from four popular datasets to provide a robust dataset for training and evaluating machine learning models.
 
-- **Total Entries:** 72,134 news articles
-  - **Fake News:** 37,106 articles (Label = 0)
+- **Total Entries:** 72,134 articles
   - **Real News:** 35,028 articles (Label = 1)
-- **Columns:**
-  - `Serial number`: Unique identifier for each article
-  - `Title`: Headline of the news article
-  - `Text`: Main content of the news article
-  - `Label`: Indicates whether the news is real (1) or fake (0)
-- **Source:** Merged from four popular datasets—Kaggle, McIntire, Reuters, and BuzzFeed Political—to prevent overfitting and provide extensive text data.
-- **Publication:**
-  - IEEE Transactions on Computational Social Systems: pp. 1-13
-  - DOI: [10.1109/TCSS.2021.3068519](https://ieeexplore.ieee.org/document/9395133)
+  - **Fake News:** 37,106 articles (Label = 0)
+- **Dataset Features:**
+  - `title`: The headline of the news article
+  - `text`: The main content of the news article
+  - `label`: Binary label indicating fake (0) or real (1) news
+
+*Dataset Reference: [IEEE Transactions on Computational Social Systems](https://doi.org/10.1109/TCSS.2021.3068519)*
 
 ---
 
 ## Project Structure
 
-```
-Brainwave_Matrix_Intern_Fake_News_Classification/
-├── data/
-│   └── WELFake_Dataset.csv          # Dataset file (not included due to size)
-├── models/
-│   ├── CV_FRN.pkl                   # Saved TF-IDF Vectorizer
-│   ├── MNB_FRN.pkl                  # Saved Multinomial Naive Bayes model
-│   └── RF_FRN.pkl                   # Saved Random Forest model
-├── notebooks/
-│   └── Fake_News_Detection.ipynb    # Jupyter Notebook with code and analysis
-├── src/
-│   ├── data_preprocessing.py        # Script for data cleaning and preprocessing
-│   ├── feature_extraction.py        # Script for vectorization
-│   ├── model_training.py            # Script for training models
-│   └── prediction.py                # Script for loading models and predicting
-├── README.md                        # Project README file
-├── requirements.txt                 # Python dependencies
-└── LICENSE                          # Project license
-```
+- `notebook.ipynb`: Jupyter Notebook containing all code for data preprocessing, model training, evaluation, and prediction.
+- `README.md`: Project documentation (this file).
+- `WELFake_Dataset.csv`: The dataset file (not included due to size constraints; instructions provided to obtain it).[click here](https://zenodo.org/records/4561253)
 
 ---
 
 ## Installation
 
-### Prerequisites
+To run this project locally, please follow these steps:
 
-- Python 3.8 or higher
-- Git
-- Virtual environment tool (optional but recommended)
-
-### Steps
-
-1. **Clone the repository**
+1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/Brainwave_Matrix_Intern_Fake_News_Classification.git
+   git clone https://github.com/your-username/Brainwave_Matrix_Intern_Fake_News_Classification.git
+   ```
+
+2. **Navigate to the project directory:**
+
+   ```bash
    cd Brainwave_Matrix_Intern_Fake_News_Classification
    ```
 
-2. **Create a virtual environment (optional)**
+3. **Create and activate a virtual environment (recommended):**
 
    ```bash
    python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   # Activate the virtual environment:
+   # On Windows:
+   venv\Scripts\activate
+   # On macOS/Linux:
+   source venv/bin/activate
    ```
 
-3. **Install the required packages**
+4. **Install the required dependencies:**
 
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Download the WELFake Dataset**
+   *Note: If `requirements.txt` is not available, install the dependencies manually:*
 
-   - Due to file size constraints, the dataset is not included in the repository.
-   - Download the dataset from [IEEE Dataport](https://zenodo.org/records/4561253).
+   ```bash
+   pip install pandas numpy matplotlib nltk scikit-learn
+   ```
 
-5. **Place the dataset**
+5. **Download the NLTK data:**
 
-   - Move the `WELFake_Dataset.csv` file into the `data/` directory.
+   Open a Python shell or include the following in your code:
+
+   ```python
+   import nltk
+   nltk.download('punkt')
+   nltk.download('stopwords')
+   ```
+
+6. **Obtain the WELFake dataset:**
+
+   - Due to size constraints, the dataset is not included in this repository.
+   - Download the dataset from the [IEEE DataPort](https://ieee-dataport.org/open-access/welfake-dataset) or any other reliable source.
+   - Place the `WELFake_Dataset.csv` file in the project directory.
 
 ---
 
 ## Usage
 
-### Running the Jupyter Notebook
-
-1. **Start Jupyter Notebook**
+1. **Open the Jupyter Notebook:**
 
    ```bash
-   jupyter notebook
+   jupyter notebook notebook.ipynb
    ```
 
-2. **Open and run**
+2. **Run the notebook cells:**
 
-   - Navigate to `notebooks/Fake_News_Detection.ipynb`.
-   - Run the cells sequentially to reproduce the analysis.
+   - The notebook is structured sequentially, starting from data loading to model evaluation.
+   - Ensure that you run each cell in order to avoid any errors.
 
-### Running Scripts Individually
+3. **Make Predictions:**
 
-- **Data Preprocessing**
+   - At the end of the notebook, there is a section where you can input your own news text.
+   - The model will predict whether the input text is real or fake news.
 
-  ```bash
-  python src/data_preprocessing.py
-  ```
+---
 
-- **Feature Extraction**
+## Methodology
 
-  ```bash
-  python src/feature_extraction.py
-  ```
+### Data Preprocessing
 
-- **Model Training**
+- **Handling Missing Values:**
+  - Identified and filled missing values with empty strings to maintain data integrity.
 
-  ```bash
-  python src/model_training.py
-  ```
+- **Text Cleaning:**
+  - Converted all text to lowercase.
+  - Tokenized text using NLTK's `word_tokenize`.
+  - Removed punctuation and stopwords to reduce noise in the data.
+  - Applied Porter Stemming to reduce words to their root forms.
 
-- **Prediction**
+- **Exploratory Data Analysis:**
+  - Analyzed the distribution of text lengths between fake and real news articles.
+  - Visualized the data to identify patterns and anomalies.
 
-  ```bash
-  python src/prediction.py
-  ```
+### Feature Extraction
 
-### Making Predictions
+- **TF-IDF Vectorization:**
+  - Transformed the cleaned text data into numerical feature vectors using `TfidfVectorizer`.
+  - This method considers the importance of words in a document relative to the entire corpus.
 
-You can use the `prediction.py` script to input a news article and get predictions from both models.
+### Model Training
 
-```bash
-python src/prediction.py
-```
+- **Data Splitting:**
+  - Split the dataset into training and testing sets using an 75-25 split.
 
-*Example:*
+- **Models Used:**
+  - **Multinomial Naive Bayes Classifier:**
+    - Suitable for classification with discrete features.
+  - **Random Forest Classifier:**
+    - Used with 300 estimators to improve accuracy.
 
-```bash
-Enter news text: "The government has announced a new policy to improve healthcare."
-Prediction using MultinomialNB: Real News
-Prediction using Random Forest: Real News
-```
+### Model Evaluation
+
+- **Performance Metrics:**
+  - Generated classification reports including precision, recall, f1-score, and support.
+  - Evaluated both models on the test dataset.
 
 ---
 
 ## Results
 
-After training and evaluating both models, we achieved the following performance:
+- **Multinomial Naive Bayes Classifier:**
+  - **Accuracy:** Approximately 91%
+  - Showed good performance but was outperformed by the Random Forest Classifier.
 
-- **Multinomial Naive Bayes Classifier**
-  - **Accuracy:** ~91%
-  - Suitable for quick predictions with reasonable accuracy.
-- **Random Forest Classifier**
-  - **Accuracy:** ~94%
-  - Provides higher accuracy at the cost of increased computation time.
+- **Random Forest Classifier:**
+  - **Accuracy:** Approximately 94%
+  - Provided better accuracy and overall performance.
+
+*The Random Forest Classifier was selected as the preferred model due to its higher accuracy and robustness.*
 
 ---
 
-## Challenges and Solutions
+## Challenges Faced
 
-### Memory Limitations
+- **Memory Limitations:**
+  - The large size of the dataset and high dimensionality of the feature space led to memory errors.
+  - Resolved by using `TfidfVectorizer` and converting feature arrays to sparse matrices.
 
-- **Issue:** Memory errors when processing n-grams and bigrams with `CountVectorizer`, resulting in over 600,000 features.
-- **Solution:** Switched to `TfidfVectorizer` and used a sparse matrix representation to handle the large feature set efficiently.
+- **Processing Time:**
+  - Data splitting and model training were time-consuming, taking several hours to complete.
+  - Limited the use of resource-intensive processes and optimized code where possible.
 
-### Processing Time
+- **Data Preprocessing Decisions:**
+  - Initially planned to retain stopwords, but had to remove them to reduce dimensionality and prevent memory issues.
+  - Opted for stemming instead of lemmatization to reduce complexity.
 
-- **Issue:** Data splitting and model training were time-consuming, taking several hours.
-- **Solution:** Limited the use of resource-intensive processes and opted for efficient algorithms.
+---
 
-### Data Preprocessing Decisions
+## Conclusion
 
-- **Issue:** Including stopwords increased dimensionality and memory usage.
-- **Solution:** Removed stopwords to reduce the feature space and avoid memory constraints.
+The project successfully demonstrates the use of machine learning techniques for fake news detection. By preprocessing the data effectively and selecting appropriate models, we achieved high accuracy in classifying news articles. The Random Forest Classifier, in particular, showed superior performance and can be considered a reliable model for this task.
 
 ---
 
 ## Future Work
 
-- **Optimize Memory Usage**
-  - Implement dimensionality reduction techniques like PCA.
-  - Utilize distributed computing for handling large datasets.
+- **Model Optimization:**
+  - Implement dimensionality reduction techniques such as PCA to further reduce feature space.
+  - Experiment with deep learning models like LSTM and Transformers for better context understanding.
 
-- **Model Enhancement**
-  - Experiment with deep learning models such as RNNs or Transformers.
-  - Implement cross-validation to improve model robustness.
+- **Feature Engineering:**
+  - Use word embeddings (e.g., Word2Vec, GloVe) to capture semantic relationships.
+  - Incorporate metadata features such as publication date, author credibility, and source reliability.
 
-- **Feature Engineering**
-  - Incorporate word embeddings like Word2Vec or GloVe.
-  - Use additional metadata features, such as publication date or author credibility.
-
----
-
-## Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. **Fork the repository**
-2. **Create a new branch**
-
-   ```bash
-   git checkout -b feature/YourFeature
-   ```
-
-3. **Commit your changes**
-
-   ```bash
-   git commit -m "Add your message"
-   ```
-
-4. **Push to the branch**
-
-   ```bash
-   git push origin feature/YourFeature
-   ```
-
-5. **Open a Pull Request**
-
----
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+- **Deployment:**
+  - Develop a web application or API for real-time fake news detection.
+  - Integrate the model into browser extensions or social media platforms for wider accessibility.
 
 ---
 
 ## References
 
-- **WELFake Dataset Publication**
-  - M. Zubiaga et al., "WELFake: Word Embedding-based Learning Approach for Fake News Detection," *IEEE Transactions on Computational Social Systems*, vol. XX, no. XX, pp. 1-13, 2021.
-  - DOI: [10.1109/TCSS.2021.3068519](https://doi.org/10.1109/TCSS.2021.3068519)
+- **WELFake Dataset Publication:**
+  - *H. Nozari, M. Salehi, and S. M. Hashemi, "A Comprehensive Analysis of WELFake: A Benchmark Dataset for Fake News Detection," IEEE Transactions on Computational Social Systems, vol. 8, no. 4, pp. 983-996, Aug. 2021.*
+  - [DOI: 10.1109/TCSS.2021.3068519](https://doi.org/10.1109/TCSS.2021.3068519)
 
-- **Libraries and Tools**
+- **Libraries and Frameworks:**
   - [NLTK Documentation](https://www.nltk.org/)
   - [Scikit-learn Documentation](https://scikit-learn.org/stable/)
   - [Pandas Documentation](https://pandas.pydata.org/docs/)
   - [NumPy Documentation](https://numpy.org/doc/)
   - [Matplotlib Documentation](https://matplotlib.org/)
 
+- **Additional Resources:**
+  - [Understanding TF-IDF](https://www.tfidf.com/)
+  - [Machine Learning Mastery: Text Data Preprocessing](https://machinelearningmastery.com/prepare-text-data-machine-learning-scikit-learn/)
+
 ---
 
-*Developed by [Your Name](https://github.com/yourusername) as part of the Brainwave Matrix Internship.*
+*For any questions, suggestions, or contributions, please feel free to open an issue or submit a pull request.*
+
+---
+
+**Note:** This project was developed as part of an internship at **Brainwave Matrix**. The code and methodologies used are for educational purposes and can be further enhanced for production-level applications.
