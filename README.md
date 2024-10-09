@@ -21,7 +21,6 @@ This project was developed during an internship at **Brainwave Matrix** and focu
 - [Results](#results)
 - [Challenges Faced](#challenges-faced)
 - [Conclusion](#conclusion)
-- [Future Work](#future-work)
 - [References](#references)
 
 ---
@@ -205,22 +204,6 @@ The project successfully demonstrates the use of machine learning techniques for
 
 ---
 
-## Future Work
-
-- **Model Optimization:**
-  - Implement dimensionality reduction techniques such as PCA to further reduce feature space.
-  - Experiment with deep learning models like LSTM and Transformers for better context understanding.
-
-- **Feature Engineering:**
-  - Use word embeddings (e.g., Word2Vec, GloVe) to capture semantic relationships.
-  - Incorporate metadata features such as publication date, author credibility, and source reliability.
-
-- **Deployment:**
-  - Develop a web application or API for real-time fake news detection.
-  - Integrate the model into browser extensions or social media platforms for wider accessibility.
-
----
-
 ## References
 
 - **WELFake Dataset Publication:**
@@ -243,5 +226,3 @@ The project successfully demonstrates the use of machine learning techniques for
 *For any questions, suggestions, or contributions, please feel free to open an issue or submit a pull request.*
 
 ---
-
-**Note:** This project was developed as part of an internship at **Brainwave Matrix**. The code and methodologies used are for educational purposes and can be further enhanced for production-level applications.
