@@ -46,7 +46,7 @@ The **WELFake** dataset is used for this project. It is a comprehensive collecti
 
 - `notebook.ipynb`: Jupyter Notebook containing all code for data preprocessing, model training, evaluation, and prediction.
 - `README.md`: Project documentation (this file).
-- `WELFake_Dataset.csv`: The dataset file (not included due to size constraints; instructions provided to obtain it).[click here](https://zenodo.org/records/4561253)
+- `WELFake_Dataset.csv`: The dataset file (not included due to size constraints; instructions provided to obtain it).[Dataset](https://zenodo.org/records/4561253)
 
 ---
 
