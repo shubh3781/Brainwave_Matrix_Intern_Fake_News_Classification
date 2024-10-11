@@ -171,7 +171,7 @@ To run this project locally, please follow these steps:
 ## Results
 
 - **Multinomial Naive Bayes Classifier:**
-  - **Accuracy:** Approximately 91%
+  - **Accuracy:** Approximately 88%
   - Showed good performance but was outperformed by the Random Forest Classifier.
 
 - **Random Forest Classifier:**
